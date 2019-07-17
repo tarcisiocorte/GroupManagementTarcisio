@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using TCCP.PlayBall.GroupManagement.Web.Models;
 
@@ -49,5 +50,21 @@ namespace TCCP.PlayBall.GroupManagement.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        [Route("create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(GroupViewModel model)
+        {
+            model.Id = ++currentGroupId;
+            groups.Add(model);
+            return RedirectToAction("Index");
+        }
     }
 }
