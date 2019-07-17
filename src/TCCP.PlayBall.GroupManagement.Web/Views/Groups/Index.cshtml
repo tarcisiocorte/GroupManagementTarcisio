@@ -1,0 +1,8 @@
+@model IEnumerable<GroupViewModel>
+
+<ul>
+    @foreach (var group in Model)
+    {
+        <li>@group.Name</li>
+    }
+</ul>
