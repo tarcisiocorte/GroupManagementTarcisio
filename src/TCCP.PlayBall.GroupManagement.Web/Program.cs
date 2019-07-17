@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace CodingMilitia.PlayBall.GroupManagement.Web
+namespace TCCP.PlayBall.GroupManagement.Web
 {
     public class Program
     {

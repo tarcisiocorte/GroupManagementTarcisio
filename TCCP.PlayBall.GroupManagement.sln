@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{75FA32CA-54CC-4ABE-B59A-AB1488DA6418}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingMilitia.PlayBall.GroupManagement.Web", "src\CodingMilitia.PlayBall.GroupManagement.Web\CodingMilitia.PlayBall.GroupManagement.Web.csproj", "{D5D5A923-C2D2-4A39-A4B7-6DF5977F66E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCCP.PlayBall.GroupManagement.Web", "src\TCCP.PlayBall.GroupManagement.Web\TCCP.PlayBall.GroupManagement.Web.csproj", "{D5D5A923-C2D2-4A39-A4B7-6DF5977F66E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
