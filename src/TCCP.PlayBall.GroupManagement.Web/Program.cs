@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace TCCP.PlayBall.GroupManagement.Web
+namespace Tccp.PlayBall.GroupManagement.Web
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("############### Starting application ###############");
             CreateWebHostBuilder(args).Build().Run();
         }
 

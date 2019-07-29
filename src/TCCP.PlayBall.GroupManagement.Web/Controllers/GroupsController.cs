@@ -1,36 +1,44 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+using Tccp.PlayBall.GroupManagement.Business.Services;
+using Tccp.PlayBall.GroupManagement.Web.Demo;
+using Tccp.PlayBall.GroupManagement.Web.Mappings;
+using Tccp.PlayBall.GroupManagement.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using TCCP.PlayBall.GroupManagement.Web.Models;
 
-namespace TCCP.PlayBall.GroupManagement.Web.Controllers
+namespace Tccp.PlayBall.GroupManagement.Web.Controllers
 {
     [Route("groups")]
     public class GroupsController : Controller
     {
-        private static long currentGroupId = 1;
-        private static List<GroupViewModel> groups = new List<GroupViewModel> { new GroupViewModel { Id = 1, Name = "Sample Group" }, new GroupViewModel { Id = 2, Name = "Sample Group - 2" } };
+        private readonly IGroupsService _groupsService;
+        private readonly SomeRootConfiguration _config;
+        private readonly DemoSecretsConfiguration _secrets;
 
+        public GroupsController(IGroupsService groupsService, SomeRootConfiguration config, DemoSecretsConfiguration secrets)
+        {
+            _groupsService = groupsService;
+            _config = config;
+            _secrets = secrets;
+        }
+        
         [HttpGet]
-        [Route("")] //not needed because Index would be used as default anyway
+        [Route("")]
         public IActionResult Index()
         {
-            return View(groups);
+            return View(_groupsService.GetAll().ToViewModel());
         }
-
+        
         [HttpGet]
         [Route("{id}")]
         public IActionResult Details(long id)
         {
-            var group = groups.SingleOrDefault(g => g.Id == id);
+            var group = _groupsService.GetById(id);
 
             if (group == null)
             {
                 return NotFound();
             }
 
-            return View(group);
+            return View(group.ToViewModel());
         }
 
         [HttpPost]
@@ -38,14 +46,12 @@ namespace TCCP.PlayBall.GroupManagement.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(long id, GroupViewModel model)
         {
-            var group = groups.SingleOrDefault(g => g.Id == id);
+            var group = _groupsService.Update(model.ToServiceModel());
 
             if (group == null)
             {
                 return NotFound();
             }
-
-            group.Name = model.Name;
 
             return RedirectToAction("Index");
         }
@@ -60,10 +66,10 @@ namespace TCCP.PlayBall.GroupManagement.Web.Controllers
         [HttpPost]
         [Route("")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(GroupViewModel model)
+        public IActionResult CreateReally(GroupViewModel model)
         {
-            model.Id = ++currentGroupId;
-            groups.Add(model);
+            _groupsService.Add(model.ToServiceModel());
+
             return RedirectToAction("Index");
         }
     }
