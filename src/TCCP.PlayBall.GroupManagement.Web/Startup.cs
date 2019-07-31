@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Tccp.PlayBall.GroupManagement.Web.Demo.Middlewares;
 
 namespace Tccp.PlayBall.GroupManagement.Web
 {
@@ -39,12 +40,13 @@ namespace Tccp.PlayBall.GroupManagement.Web
             }
 
             app.UseStaticFiles();
+            app.UseMiddleware<RequestTimingAdHocMiddleware>();
             
             app.Use(async (context, next) =>
             {
                 context.Response.OnStarting(() =>
                 {
-                    context.Response.Headers.Add("X-Powered-By", "ASP.NET Core: From 0 to overkill");
+                    context.Response.Headers.Add("X-Powered-By", "ASP.NET Core - training...");
                     return Task.CompletedTask;
                 });
 
