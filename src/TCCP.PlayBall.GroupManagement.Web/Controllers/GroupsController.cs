@@ -1,5 +1,4 @@
 using Tccp.PlayBall.GroupManagement.Business.Services;
-using Tccp.PlayBall.GroupManagement.Web.Demo;
 using Tccp.PlayBall.GroupManagement.Web.Mappings;
 using Tccp.PlayBall.GroupManagement.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,14 +9,10 @@ namespace Tccp.PlayBall.GroupManagement.Web.Controllers
     public class GroupsController : Controller
     {
         private readonly IGroupsService _groupsService;
-        private readonly SomeRootConfiguration _config;
-        private readonly DemoSecretsConfiguration _secrets;
 
-        public GroupsController(IGroupsService groupsService, SomeRootConfiguration config, DemoSecretsConfiguration secrets)
+        public GroupsController(IGroupsService groupsService)
         {
             _groupsService = groupsService;
-            _config = config;
-            _secrets = secrets;
         }
         
         [HttpGet]
