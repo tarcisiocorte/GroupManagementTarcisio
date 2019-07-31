@@ -23,18 +23,18 @@ namespace Tccp.PlayBall.GroupManagement.Web
             ConfigureNLog();
             CreateWebHostBuilder(args).Build().Run();
         }
-        
+
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureLogging(builder =>
                 {
-                    builder.ClearProviders(); //clear default providers, NLog will handle it
-                    builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace); //set minimum level to trace, NLog rules will kick in afterwards
+                    builder.ClearProviders();
+                    builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace); 
                 })
                 .UseNLog()
                 .UseStartup<Startup>();
-        
-        //TODO: replace with nlog.config
+
+
         private static void ConfigureNLog()
         {
             var config = new LoggingConfiguration();
@@ -44,18 +44,8 @@ namespace Tccp.PlayBall.GroupManagement.Web
                 Layout = @"${date:format=HH\:mm\:ss} ${logger} ${level} ${message} ${exception}"
             };
             config.AddTarget(consoleTarget);
-            
-            //var fileTarget = new FileTarget("file")
-            //{
-            //    FileName = "${basedir}/file.log",
-            //    Layout = @"${date:format=HH\:mm\:ss} ${level} ${message} ${exception} ${ndlc}"
-            //};
-            //config.AddTarget(fileTarget);
-            
-            config.AddRule(LogLevel.Trace, LogLevel.Fatal, consoleTarget, "Tccp.*");
+            config.AddRule(LogLevel.Trace, LogLevel.Info, consoleTarget, "Tccp.*");
             config.AddRule(LogLevel.Warn, LogLevel.Fatal, consoleTarget);
-            //config.AddRule(LogLevel.Warn, LogLevel.Fatal, fileTarget);
-
             LogManager.Configuration = config;
         }
     }
