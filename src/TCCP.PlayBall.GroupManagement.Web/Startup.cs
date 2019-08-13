@@ -26,12 +26,15 @@ namespace Tccp.PlayBall.GroupManagement.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //registro das classes de Filters e Action Filter
             services.AddMvc(options =>
             {
                 options.Filters.Add<DemoActionFilter>();
             });
 
             services.AddTransient<RequestTimingFactoryMiddleware>();
+
+            //Classe de Exceptions customizadas com Actions Filter
             services.AddTransient<DemoExceptionFilter>();
             services.AddBusiness();
         }
@@ -64,7 +67,7 @@ namespace Tccp.PlayBall.GroupManagement.Web
             {
                 context.Response.OnStarting(() =>
                 {
-                    context.Response.Headers.Add("X-Powered-By", "ASP.NET Core: From 0 to overkill");
+                    context.Response.Headers.Add("X-Powered-By", "ASP.NET Core");
                     return Task.CompletedTask;
                 });
 
